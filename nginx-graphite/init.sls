@@ -28,6 +28,8 @@ graphite-available:
     - name: /etc/nginx/sites-available/graphite
     - source: salt://nginx-graphite/files/graphite.conf
     - template: jinja
+    - context:
+      lua_enabled: False
 
 graphite-enabled:
   file.symlink:
