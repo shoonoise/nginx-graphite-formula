@@ -3,7 +3,7 @@ nginx-package:
     - pkgs:
       - nginx
 
-{%- if salt['pillar.get']('ssl:key-file') -%}
+{% if salt['pillar.get']('ssl:key-file') %}
 /etc/ssl/private/{{ salt['pillar.get']('ssl:key-file') }}:
   file.managed:
     - source: salt://nginx-graphite/files/{{ salt['pillar.get']('ssl:key-file') }}
