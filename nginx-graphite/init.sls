@@ -1,7 +1,7 @@
 nginx-package:
   pkg.latest:
     - pkgs:
-      - nginx
+      - nginx-extra
 
 {% if salt['pillar.get']('ssl:key-file') %}
 /etc/ssl/private/{{ salt['pillar.get']('ssl:key-file') }}:
@@ -23,13 +23,22 @@ nginx-package:
       - service: nginx
 {% endif %}
 
+{% for luafile in ['collect_statuses.lua','show_statuses_stat.lua'] %}
+/etc/nginx/{{ luafile }}
+  file.managed:
+    - source: salt://nginx-graphite/files/lua/{{ luafile }}
+    - owner: root
+    - group: root
+    - file_mode: 644
+    - watch_in:
+      - service: nginx
+{% endfor %}
+
 graphite-available:
   file.managed:
     - name: /etc/nginx/sites-available/graphite
     - source: salt://nginx-graphite/files/graphite.conf
     - template: jinja
-    - context:
-      lua_enabled: False
 
 graphite-enabled:
   file.symlink:
