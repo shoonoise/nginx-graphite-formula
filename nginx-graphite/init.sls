@@ -1,3 +1,11 @@
+{% if grains['os'] == 'Ubuntu' %}
+nginx-repo:
+  pkgrepo.managed:
+    - ppa: nginx/stable
+    - require_in:
+      - pkg: nginx-package
+{% endif %}
+
 nginx-package:
   pkg.latest:
     - pkgs:
