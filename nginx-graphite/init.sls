@@ -32,7 +32,7 @@ nginx-package:
       - service: nginx
 {% endif %}
 
-{% for luafile in ['collect_statuses.lua','show_statuses_stat.lua'] %}
+{% for luafile in ['collect_stats.lua','show_stat.lua','common_stat.lua'] %}
 /etc/nginx/{{ luafile }}:
   file.managed:
     - source: salt://nginx-graphite/files/lua/{{ luafile }}
