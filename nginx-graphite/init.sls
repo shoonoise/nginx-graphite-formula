@@ -9,7 +9,8 @@ nginx-repo:
 nginx-package:
   pkg.latest:
     - pkgs:
-      - nginx-extra
+      - nginx-extras
+      - liblua5.1-json
 
 {% if salt['pillar.get']('ssl:key-file') %}
 /etc/ssl/private/{{ salt['pillar.get']('ssl:key-file') }}:
