@@ -32,7 +32,7 @@ nginx-package:
 {% endif %}
 
 {% for luafile in ['collect_statuses.lua','show_statuses_stat.lua'] %}
-/etc/nginx/{{ luafile }}
+/etc/nginx/{{ luafile }}:
   file.managed:
     - source: salt://nginx-graphite/files/lua/{{ luafile }}
     - owner: root
